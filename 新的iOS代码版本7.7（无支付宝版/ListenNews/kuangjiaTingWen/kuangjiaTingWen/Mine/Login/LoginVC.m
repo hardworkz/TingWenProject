@@ -588,6 +588,7 @@
         [self presentViewController:qingshurumima animated:YES completion:nil];
         return;
     }
+//    [self.view endEditing:YES];
     [NetWorkTool getPaoGuoUserInfoWithUserName:[DSE encryptUseDES:[userTF.text stringByReplacingOccurrencesOfString:@" " withString:@""]] andPassWord:[DSE encryptUseDES:[passWTF.text stringByReplacingOccurrencesOfString:@" " withString:@""]] sccess:^(NSDictionary *responseObject) {
         RTLog(@"%@",responseObject);
         if ([responseObject[status] intValue] == 1) {
@@ -619,11 +620,20 @@
             [APPDELEGATE getVipLimitData];
             [APPDELEGATE getAppVersion];
         }else{
-            XWAlerLoginView *alert = [[XWAlerLoginView alloc] initWithTitle:responseObject[msg]];
-            [alert show];
+//            XWAlerLoginView *alert = [[XWAlerLoginView alloc] initWithTitle:responseObject[msg]];
+//            [alert show];
+            UIAlertController *qingshurumima = [UIAlertController alertControllerWithTitle:responseObject[msg] message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [qingshurumima addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }]];
+            [self presentViewController:qingshurumima animated:YES completion:nil];
         }
     } failure:^(NSError *error) {
         NSLog(@"error = %@",error);
+        
+        UIAlertController *qingshurumima = [UIAlertController alertControllerWithTitle:@"网络错误！" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [qingshurumima addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }]];
+        [self presentViewController:qingshurumima animated:YES completion:nil];
     }];
 }
 
