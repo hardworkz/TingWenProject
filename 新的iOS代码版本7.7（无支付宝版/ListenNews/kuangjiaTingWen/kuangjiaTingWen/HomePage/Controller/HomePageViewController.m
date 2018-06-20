@@ -77,8 +77,10 @@
     
     self.playListIndex = 2;
     //这里是启动app时广告
-    RegisterNotify(@"getStartAD", @selector(getStartAD))
-//    [self getStartAD];
+//    RegisterNotify(@"getStartAD", @selector(getStartAD))
+    if ([CommonCode readFromUserD:@"StartAD_Data"] != nil) {
+        [self getStartAD];
+    }
     [self setUpView];
     [self setUpData];
     
@@ -778,31 +780,31 @@
 
 - (void)getStartAD{
     //获取开屏广告数据，判断屏幕尺寸
-    NSDictionary *responseObject = [CommonCode readFromUserD:@"StartAD_Data"];
-    if ([responseObject[@"results"] isKindOfClass:[NSArray class]] && responseObject != nil){
-        if (TARGETED_DEVICE_IS_IPHONE_480 && [[responseObject[@"results"] firstObject][@"status"] isEqualToString:@"1"]){
+//    NSDictionary *responseObject = [CommonCode readFromUserD:@"StartAD_Data"];
+//    if ([responseObject[@"results"] isKindOfClass:[NSArray class]] && responseObject != nil){
+//        if (TARGETED_DEVICE_IS_IPHONE_480 && [[responseObject[@"results"] firstObject][@"status"] isEqualToString:@"1"]){
+//            [self openLaunchAD];
+//        }
+//        else if (TARGETED_DEVICE_IS_IPHONE_568 &&  [responseObject[@"results"][1] [@"status"] isEqualToString:@"1"]){
+//            [self openLaunchAD];
+//        }
+//        else if (TARGETED_DEVICE_IS_IPHONE_667 &&  [responseObject[@"results"][2] [@"status"] isEqualToString:@"1"]){
+//            [self openLaunchAD];
+//        }
+//        else if (TARGETED_DEVICE_IS_IPHONE_736 &&  [responseObject[@"results"][3] [@"status"] isEqualToString:@"1"]){
+//            [self openLaunchAD];
+//        }
+//        else if (TARGETED_DEVICE_IS_IPAD &&  [responseObject[@"results"][3] [@"status"] isEqualToString:@"1"]){
+//            [self openLaunchAD];
+//        }else if (TARGETED_DEVICE_IS_IPHONE_812 &&  [responseObject[@"results"][10][@"status"] isEqualToString:@"1"]){
             [self openLaunchAD];
-        }
-        else if (TARGETED_DEVICE_IS_IPHONE_568 &&  [responseObject[@"results"][1] [@"status"] isEqualToString:@"1"]){
-            [self openLaunchAD];
-        }
-        else if (TARGETED_DEVICE_IS_IPHONE_667 &&  [responseObject[@"results"][2] [@"status"] isEqualToString:@"1"]){
-            [self openLaunchAD];
-        }
-        else if (TARGETED_DEVICE_IS_IPHONE_736 &&  [responseObject[@"results"][3] [@"status"] isEqualToString:@"1"]){
-            [self openLaunchAD];
-        }
-        else if (TARGETED_DEVICE_IS_IPAD &&  [responseObject[@"results"][3] [@"status"] isEqualToString:@"1"]){
-            [self openLaunchAD];
-        }else if (TARGETED_DEVICE_IS_IPHONE_812 &&  [responseObject[@"results"][10][@"status"] isEqualToString:@"1"]){
-            [self openLaunchAD];
-        }
-    }
+//        }
+//    }
 }
 
 - (void)openLaunchAD{
     guanggaoVC *guangao = [guanggaoVC new];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.navigationController pushViewController:guangao animated:NO];
 }
 
@@ -828,6 +830,10 @@
     else if (sender.tag == 504){
         term_id = @"14";
         newsType = @"时政";
+    }
+    else if (sender.tag == 505){
+        term_id = @"31";
+        newsType = @"区块链";
     }
     NewReportViewController *newreportVC = [[NewReportViewController alloc]init];
     newreportVC.term_id = term_id;
@@ -1276,11 +1282,11 @@
         [adContentView addSubview:tbScView];
         
         //新闻频道
-        CGFloat newsItem_width = (SCREEN_WIDTH - 10.0 / 375 * IPHONE_W)/5;
-        NSArray *newsItemTitle = @[@"财经",@"文娱",@"国际",@"科技",@"时政"];
-        for (int i = 0 ; i < 5; i ++) {
+        NSArray *newsItemTitle = @[@"财经",@"文娱",@"国际",@"科技",@"时政",@"区块链"];
+        CGFloat newsItem_width = (SCREEN_WIDTH - 20.0 / 375 * IPHONE_W)/newsItemTitle.count;
+        for (int i = 0 ; i < newsItemTitle.count; i ++) {
             UIButton *newsItem = [UIButton buttonWithType:UIButtonTypeCustom];
-            [newsItem setFrame:CGRectMake(newsItem_width * i + 5.0 / 375 * IPHONE_W + 5.0, IS_IPHONEX?162.0 + 5:162.0 / 667 * SCREEN_HEIGHT + 5, newsItem_width - 5,IS_IPAD?40:25)];
+            [newsItem setFrame:CGRectMake(newsItem_width * i + 5.0 / 375 * IPHONE_W + 8.0, IS_IPHONEX?162.0 + 5:162.0 / 667 * SCREEN_HEIGHT + 5, newsItem_width - 5,IS_IPAD?40:25)];
             [newsItem.layer setMasksToBounds:YES];
             [newsItem.layer setCornerRadius:IS_IPAD?20:12.5];
             [newsItem.layer setBorderWidth:0.5];
@@ -1303,11 +1309,11 @@
         UIView *adContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, newsItemH)];
         adContentView.backgroundColor = [UIColor whiteColor];
         //新闻频道
-        CGFloat newsItem_width = (SCREEN_WIDTH - 10.0 / 375 * IPHONE_W)/5;
-        NSArray *newsItemTitle = @[@"财经",@"文娱",@"国际",@"科技",@"时政"];
-        for (int i = 0 ; i < 5; i ++) {
+        NSArray *newsItemTitle = @[@"财经",@"文娱",@"国际",@"科技",@"时政",@"区块链"];
+        CGFloat newsItem_width = (SCREEN_WIDTH - 20.0 / 375 * IPHONE_W)/newsItemTitle.count;
+        for (int i = 0 ; i < newsItemTitle.count; i ++) {
             UIButton *newsItem = [UIButton buttonWithType:UIButtonTypeCustom];
-            [newsItem setFrame:CGRectMake(newsItem_width * i + 5.0 / 375 * IPHONE_W + 5.0, IS_IPHONEX?162.0 + 5:162.0 / 667 * SCREEN_HEIGHT + 5, newsItem_width - 5,IS_IPAD?40:25)];
+            [newsItem setFrame:CGRectMake(newsItem_width * i + 5.0 / 375 * IPHONE_W + 8.0, IS_IPHONEX?162.0 + 5:162.0 / 667 * SCREEN_HEIGHT + 5, newsItem_width - 5,IS_IPAD?40:25)];
             [newsItem.layer setMasksToBounds:YES];
             [newsItem.layer setCornerRadius:IS_IPAD?20:12.5];
             [newsItem.layer setBorderWidth:0.5];

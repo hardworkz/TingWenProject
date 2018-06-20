@@ -44,6 +44,10 @@ typedef NS_ENUM(NSInteger, RewardViewType) {
 @property (nonatomic, assign) PlayType playType;
 
 /**
+ 播放/暂停按钮
+ */
+@property (nonatomic, strong) UIButton *bofangCenterBtn;
+/**
  标题字体大小
  */
 @property(assign,nonatomic)CGFloat titleFontSize;

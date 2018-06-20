@@ -309,6 +309,8 @@ selector:_selector name:_name object:nil];
 //网络状态发生改变通知
 #define NETWORKSTATUSCHANGE @"NetworkStatusChange"
 
+//广告本地缓存
+static NSString *const StarAppAdsCache = @"StarAppAdsCache";
 //支付通知常量字符串
 static NSString *const AliPayResultsClass = @"AliPayResultsClass";
 static NSString *const WechatPayResultsClass = @"WechatPayResultsClass";

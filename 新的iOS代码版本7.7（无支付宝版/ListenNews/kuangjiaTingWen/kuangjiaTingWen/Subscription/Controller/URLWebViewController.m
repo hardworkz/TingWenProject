@@ -314,11 +314,12 @@
     for(var i=0; i<p.length; i++){\
     p[i].style.display = 'block';\
     }\
-    var div =  document.getElementsByTagName('div');\
-    for(var i=0; i<div.length; i++){\
-    div[i].style.display = 'block';\
-    }\
     };";
+    
+//    var div =  document.getElementsByTagName('div');\
+//    for(var i=0; i<div.length; i++){\
+//        div[i].style.display = 'block';\
+//    }
     NSString *allText = @"document.documentElement.innerText";
     NSString *title = @"document.title";
     DefineWeakSelf
@@ -345,13 +346,11 @@
         //        RTLog(@"%@",text);
     }];
     
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSString *timeOut =
-        @"setTimeout(function(){\
-        scrollTo(0,0);\
-        },300);";
-        [_webView evaluateJavaScript:timeOut completionHandler:nil];
-//    });
+    NSString *timeOut =
+    @"setTimeout(function(){\
+    scrollTo(0,0);\
+    },300);";
+    [_webView evaluateJavaScript:timeOut completionHandler:nil];
     
     //这里是js，主要目的实现对url的获取
     NSURL *webUrl = [NSURL URLWithString:self.urlString];

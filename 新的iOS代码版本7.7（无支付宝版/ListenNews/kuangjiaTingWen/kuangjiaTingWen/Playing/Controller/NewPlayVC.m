@@ -23,7 +23,7 @@
     //播放上一首
     UIButton *bofangLeftBtn;
     //播放开始/暂停
-    UIButton *bofangCenterBtn;
+//    UIButton *bofangCenterBtn;
     //播放下一首
     UIButton *bofangRightBtn;
     //当前播放时间label
@@ -806,14 +806,14 @@ static NewPlayVC *_instance = nil;
     [dibuView addSubview:bofangRightBtn];
     
     //底部播放暂停按钮
-    bofangCenterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    bofangCenterBtn.frame = CGRectMake((IPHONE_W  - bofangLeftBtn.frame.size.width)/ 2, bofangLeftBtn.frame.origin.y, bofangLeftBtn.frame.size.width ,bofangLeftBtn.frame.size.height);
-    [bofangCenterBtn setImage:[UIImage imageNamed:@"home_news_ic_play"] forState:UIControlStateNormal];
-    [bofangCenterBtn setImage:[UIImage imageNamed:@"home_news_ic_pause"] forState:UIControlStateSelected];
-    bofangCenterBtn.accessibilityLabel = @"播放";
-    [bofangCenterBtn addTarget:self action:@selector(playPauseClicked:) forControlEvents:UIControlEventTouchUpInside];
-    bofangCenterBtn.contentMode = UIViewContentModeScaleToFill;
-    bofangCenterBtn.selected = YES;
+    _bofangCenterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _bofangCenterBtn.frame = CGRectMake((IPHONE_W  - bofangLeftBtn.frame.size.width)/ 2, bofangLeftBtn.frame.origin.y, bofangLeftBtn.frame.size.width ,bofangLeftBtn.frame.size.height);
+    [_bofangCenterBtn setImage:[UIImage imageNamed:@"home_news_ic_play"] forState:UIControlStateNormal];
+    [_bofangCenterBtn setImage:[UIImage imageNamed:@"home_news_ic_pause"] forState:UIControlStateSelected];
+    _bofangCenterBtn.accessibilityLabel = @"播放";
+    [_bofangCenterBtn addTarget:self action:@selector(playPauseClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _bofangCenterBtn.contentMode = UIViewContentModeScaleToFill;
+    _bofangCenterBtn.selected = YES;
     
     //新闻时长
     if (IS_IPAD) {
@@ -858,7 +858,7 @@ static NewPlayVC *_instance = nil;
     [dibuView addSubview:self.sliderProgress];
     self.sliderProgress.maximumTrackTintColor = [UIColor clearColor];
     
-    [dibuView addSubview:bofangCenterBtn];
+    [dibuView addSubview:_bofangCenterBtn];
     
     DefineWeakSelf
     [ZRT_PlayerManager manager].playTimeObserve = ^(float progress,float currentTime,float totalDuration) {
@@ -911,14 +911,14 @@ static NewPlayVC *_instance = nil;
     [dibuView addSubview:bofangRightBtn];
     
     //底部播放暂停按钮
-    bofangCenterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    bofangCenterBtn.frame = CGRectMake((IPHONE_W  - bofangLeftBtn.frame.size.width)/ 2, bofangLeftBtn.frame.origin.y, bofangLeftBtn.frame.size.width ,bofangLeftBtn.frame.size.height);
-    [bofangCenterBtn setImage:[UIImage imageNamed:@"home_news_ic_play"] forState:UIControlStateNormal];
-    [bofangCenterBtn setImage:[UIImage imageNamed:@"home_news_ic_pause"] forState:UIControlStateSelected];
-    bofangCenterBtn.accessibilityLabel = @"播放";
-    [bofangCenterBtn addTarget:self action:@selector(playPauseClicked:) forControlEvents:UIControlEventTouchUpInside];
-    bofangCenterBtn.contentMode = UIViewContentModeScaleToFill;
-    bofangCenterBtn.selected = YES;
+    _bofangCenterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _bofangCenterBtn.frame = CGRectMake((IPHONE_W  - bofangLeftBtn.frame.size.width)/ 2, bofangLeftBtn.frame.origin.y, bofangLeftBtn.frame.size.width ,bofangLeftBtn.frame.size.height);
+    [_bofangCenterBtn setImage:[UIImage imageNamed:@"home_news_ic_play"] forState:UIControlStateNormal];
+    [_bofangCenterBtn setImage:[UIImage imageNamed:@"home_news_ic_pause"] forState:UIControlStateSelected];
+    _bofangCenterBtn.accessibilityLabel = @"播放";
+    [_bofangCenterBtn addTarget:self action:@selector(playPauseClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _bofangCenterBtn.contentMode = UIViewContentModeScaleToFill;
+    _bofangCenterBtn.selected = YES;
     
     //新闻时长
     if (IS_IPAD) {
@@ -962,7 +962,7 @@ static NewPlayVC *_instance = nil;
     [dibuView addSubview:self.sliderProgress];
     self.sliderProgress.maximumTrackTintColor = [UIColor clearColor];
     
-    [dibuView addSubview:bofangCenterBtn];
+    [dibuView addSubview:_bofangCenterBtn];
     
     DefineWeakSelf
     [ZRT_PlayerManager manager].playTimeObserve = ^(float progress,float currentTime,float totalDuration) {
@@ -2223,14 +2223,14 @@ static NewPlayVC *_instance = nil;
 {
     switch ([ZRT_PlayerManager manager].status) {
         case ZRTPlayStatusPlay:
-            bofangCenterBtn.selected = YES;
+            _bofangCenterBtn.selected = YES;
             break;
             
         case ZRTPlayStatusPause:
-            bofangCenterBtn.selected = NO;
+            _bofangCenterBtn.selected = NO;
             break;
         case ZRTPlayStatusStop:
-            bofangCenterBtn.selected = NO;
+            _bofangCenterBtn.selected = NO;
             break;
         default:
             break;

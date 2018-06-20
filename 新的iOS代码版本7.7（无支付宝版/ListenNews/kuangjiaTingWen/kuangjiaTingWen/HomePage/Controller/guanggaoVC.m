@@ -16,9 +16,45 @@
 @end
 
 @implementation guanggaoVC
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if ([CommonCode readFromUserD:StarAppAdsCache]) {
+        [imgV sd_setImageWithURL:[NSURL URLWithString:[CommonCode readFromUserD:StarAppAdsCache]]];
+    }
+    
+    //获取开屏广告数据，判断屏幕尺寸
+    NSDictionary *responseObject = [CommonCode readFromUserD:@"StartAD_Data"];
+    if ([responseObject[@"results"] isKindOfClass:[NSArray class]] && responseObject != nil){
+        if (TARGETED_DEVICE_IS_IPHONE_480 && [[responseObject[@"results"] firstObject][@"status"] isEqualToString:@"1"]){
+            [imgV sd_setImageWithURL:[NSURL URLWithString:[responseObject[@"results"] firstObject][@"ad_content"]]];
+            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][0][@"ad_content"]] tapUrlStr:responseObject[results][0][@"ad_name"]];
+        }
+        else if (TARGETED_DEVICE_IS_IPHONE_568 &&  [responseObject[@"results"][1] [@"status"] isEqualToString:@"1"]){
+            [imgV sd_setImageWithURL:[NSURL URLWithString:responseObject[@"results"][1][@"ad_content"]]];
+            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][1][@"ad_content"]] tapUrlStr:responseObject[results][1][@"ad_name"]];
+        }
+        else if (TARGETED_DEVICE_IS_IPHONE_667 &&  [responseObject[@"results"][2] [@"status"] isEqualToString:@"1"]){
+            [imgV sd_setImageWithURL:[NSURL URLWithString:responseObject[@"results"][2][@"ad_content"]]];
+            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][2][@"ad_content"]] tapUrlStr:responseObject[results][2][@"ad_name"]];
+        }
+        else if (TARGETED_DEVICE_IS_IPHONE_736 &&  [responseObject[@"results"][3] [@"status"] isEqualToString:@"1"]){
+            [imgV sd_setImageWithURL:[NSURL URLWithString:responseObject[@"results"][3][@"ad_content"]]];
+            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][3][@"ad_content"]] tapUrlStr:responseObject[results][3][@"ad_name"]];
+        }
+        else if (TARGETED_DEVICE_IS_IPAD &&  [responseObject[@"results"][3] [@"status"] isEqualToString:@"1"]){
+            [imgV sd_setImageWithURL:[NSURL URLWithString:responseObject[@"results"][3][@"ad_content"]]];
+            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][3][@"ad_content"]] tapUrlStr:responseObject[results][3][@"ad_name"]];
+        }else if (TARGETED_DEVICE_IS_IPHONE_812 &&  [responseObject[@"results"][10][@"status"] isEqualToString:@"1"]){
+            [imgV sd_setImageWithURL:[NSURL URLWithString:responseObject[@"results"][10][@"ad_content"]]];
+            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][10][@"ad_content"]] tapUrlStr:responseObject[results][10][@"ad_name"]];
+        }
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
     
     imgV = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.view addSubview:imgV];
@@ -39,39 +75,45 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction)];
     [imgV addGestureRecognizer:tap];
     
-    [NetWorkTool getIntoAppGuangGaoAccessToken:IS_LOGIN?AvatarAccessToken:nil sccess:^(NSDictionary *responseObject) {
-        if (TARGETED_DEVICE_IS_IPHONE_480){
-            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][0][@"ad_content"]] tapUrlStr:responseObject[results][0][@"ad_name"]];
-        }
-        else if (TARGETED_DEVICE_IS_IPHONE_568){
-            NSLog(@"IPHONE6");
-            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][1][@"ad_content"]] tapUrlStr:responseObject[results][1][@"ad_name"]];
-        }
-        else if (TARGETED_DEVICE_IS_IPHONE_667){
-            NSLog(@"IPHONE6P");
-            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][2][@"ad_content"]] tapUrlStr:responseObject[results][2][@"ad_name"]];
-        }
-        else if (TARGETED_DEVICE_IS_IPHONE_736){
-            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][3][@"ad_content"]] tapUrlStr:responseObject[results][3][@"ad_name"]];
-        }
-        else if (IS_IPAD){
-            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][3][@"ad_content"]] tapUrlStr:responseObject[results][3][@"ad_name"]];
-        }else if (TARGETED_DEVICE_IS_IPHONE_812 &&  [responseObject[results][10][@"status"] isEqualToString:@"1"]){
-            [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][3][@"ad_content"]] tapUrlStr:responseObject[results][3][@"ad_name"]];
-        }
-        
-    } failure:^(NSError *error)
-     {
-         NSLog(@"error = %@",error);
-         [self performSelector:@selector(afterAction) withObject:nil];
-
-     }];
+//    [NetWorkTool getIntoAppGuangGaoAccessToken:IS_LOGIN?AvatarAccessToken:nil sccess:^(NSDictionary *responseObject) {
+//         if ([responseObject[@"results"] isKindOfClass:[NSArray class]] && responseObject != nil){
+//             if (TARGETED_DEVICE_IS_IPHONE_480){
+//                 [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][0][@"ad_content"]] tapUrlStr:responseObject[results][0][@"ad_name"]];
+//                 [CommonCode writeToUserD:responseObject[results][0][@"ad_content"] andKey:StarAppAdsCache];
+//             }
+//             else if (TARGETED_DEVICE_IS_IPHONE_568){
+//                 NSLog(@"IPHONE6");
+//                 [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][1][@"ad_content"]] tapUrlStr:responseObject[results][1][@"ad_name"]];
+//                 [CommonCode writeToUserD:responseObject[results][1][@"ad_content"] andKey:StarAppAdsCache];
+//             }
+//             else if (TARGETED_DEVICE_IS_IPHONE_667){
+//                 NSLog(@"IPHONE6P");
+//                 [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][2][@"ad_content"]] tapUrlStr:responseObject[results][2][@"ad_name"]];
+//                 [CommonCode writeToUserD:responseObject[results][2][@"ad_content"] andKey:StarAppAdsCache];
+//             }
+//             else if (TARGETED_DEVICE_IS_IPHONE_736){
+//                 [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][3][@"ad_content"]] tapUrlStr:responseObject[results][3][@"ad_name"]];
+//                 [CommonCode writeToUserD:responseObject[results][3][@"ad_content"] andKey:StarAppAdsCache];
+//             }
+//             else if (IS_IPAD){
+//                 [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][3][@"ad_content"]] tapUrlStr:responseObject[results][3][@"ad_name"]];
+//                 [CommonCode writeToUserD:responseObject[results][3][@"ad_content"] andKey:StarAppAdsCache];
+//             }else if (TARGETED_DEVICE_IS_IPHONE_812 &&  [responseObject[results][10][@"status"] isEqualToString:@"1"]){
+//                 [self setVCWithUrlStr:[NSString stringWithFormat:@"%@",responseObject[results][10][@"ad_content"]] tapUrlStr:responseObject[results][10][@"ad_name"]];
+//                 [CommonCode writeToUserD:responseObject[results][10][@"ad_content"] andKey:StarAppAdsCache];
+//             }
+//         }
+//    } failure:^(NSError *error)
+//     {
+//         NSLog(@"error = %@",error);
+//         [self performSelector:@selector(afterAction) withObject:nil];
+//
+//     }];
 }
 - (void)setVCWithUrlStr:(NSString *)urlStr tapUrlStr:(NSString *)tapUrlStr
 {
     self.urlStr = urlStr;
     self.tapUrlStr = tapUrlStr;
-    [imgV sd_setImageWithURL:[NSURL URLWithString:self.urlStr]];
     [self performSelector:@selector(afterAction) withObject:nil afterDelay:3.0f];
 }
 
@@ -123,7 +165,7 @@
         [[UIApplication sharedApplication]openURL:[NSURL URLWithString:self.tapUrlStr]];
     }
     //清空开屏广告本地数据
-    [CommonCode writeToUserD:nil andKey:@"StartAD_Data"];
+//    [CommonCode writeToUserD:nil andKey:@"StartAD_Data"];
 }
 
 - (void)afterAction {
@@ -131,13 +173,13 @@
         [self.navigationController popViewControllerAnimated:NO];
     }
     //清空开屏广告本地数据
-    [CommonCode writeToUserD:nil andKey:@"StartAD_Data"];
+//    [CommonCode writeToUserD:nil andKey:@"StartAD_Data"];
 }
 
 - (void)tiaoguo {
     [self.navigationController popViewControllerAnimated:NO];
     NSLog(@"跳过");
     //清空开屏广告本地数据
-    [CommonCode writeToUserD:nil andKey:@"StartAD_Data"];
+//    [CommonCode writeToUserD:nil andKey:@"StartAD_Data"];
 }
 @end

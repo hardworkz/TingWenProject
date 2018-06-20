@@ -139,38 +139,48 @@
         if ([responseObject[@"results"] isKindOfClass:[NSArray class]] && responseObject != nil){
             if (TARGETED_DEVICE_IS_IPHONE_480 && [[responseObject[@"results"] firstObject][@"status"] isEqualToString:@"1"]){
                 [CommonCode writeToUserD:responseObject andKey:@"StartAD_Data"];
-                SendNotify(@"getStartAD", nil);
+//                SendNotify(@"getStartAD", nil);
+//                [CommonCode writeToUserD:responseObject[results][0][@"ad_content"] andKey:StarAppAdsCache];
             }
             else if (TARGETED_DEVICE_IS_IPHONE_568 &&  [responseObject[@"results"][1] [@"status"] isEqualToString:@"1"]){
                 [CommonCode writeToUserD:responseObject andKey:@"StartAD_Data"];
-                SendNotify(@"getStartAD", nil);
+//                SendNotify(@"getStartAD", nil);
+//                [CommonCode writeToUserD:responseObject[results][1][@"ad_content"] andKey:StarAppAdsCache];
             }
             else if (TARGETED_DEVICE_IS_IPHONE_667 &&  [responseObject[@"results"][2] [@"status"] isEqualToString:@"1"]){
                 [CommonCode writeToUserD:responseObject andKey:@"StartAD_Data"];
-                SendNotify(@"getStartAD", nil);
+//                SendNotify(@"getStartAD", nil);
+//                [CommonCode writeToUserD:responseObject[results][2][@"ad_content"] andKey:StarAppAdsCache];
             }
             else if (TARGETED_DEVICE_IS_IPHONE_736 &&  [responseObject[@"results"][3] [@"status"] isEqualToString:@"1"]){
                 [CommonCode writeToUserD:responseObject andKey:@"StartAD_Data"];
-                SendNotify(@"getStartAD", nil);
+//                SendNotify(@"getStartAD", nil);
+//                [CommonCode writeToUserD:responseObject[results][3][@"ad_content"] andKey:StarAppAdsCache];
             }
             else if (TARGETED_DEVICE_IS_IPAD &&  [responseObject[@"results"][3] [@"status"] isEqualToString:@"1"]){
                 [CommonCode writeToUserD:responseObject andKey:@"StartAD_Data"];
-                SendNotify(@"getStartAD", nil);
+//                SendNotify(@"getStartAD", nil);
             }else if (TARGETED_DEVICE_IS_IPHONE_812 &&  [responseObject[@"results"][10][@"status"] isEqualToString:@"1"]){
                 [CommonCode writeToUserD:responseObject andKey:@"StartAD_Data"];
-                SendNotify(@"getStartAD", nil);
+//                SendNotify(@"getStartAD", nil);
+//                [CommonCode writeToUserD:responseObject[results][10][@"ad_content"] andKey:StarAppAdsCache];
             }else{
                 //添加开屏广告空间到窗口
-                [self.splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
+//                [self.splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
             }
         }else{
             //添加开屏广告空间到窗口
-            [self.splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
+//            [self.splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
         }
     }failure:^(NSError *error){
         //添加开屏广告空间到窗口
-        [self.splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
+//        [self.splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
     }];
+    RTLog(@"%@",[CommonCode readFromUserD:StarAppAdsCache]);
+    if ([CommonCode readFromUserD:@"StartAD_Data"] == nil) {
+        //添加开屏广告空间到窗口
+        [self.splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
+    }
     
     //初始化播放器和播放控制器
     [ZRT_PlayerManager manager];
