@@ -3348,7 +3348,10 @@ static NSInteger zanTouchCount = 0;
     NSString * timeStr = [NSString stringWithFormat:@"%@:%@",minStr, secStr];
     return timeStr;
 }
-#pragma mark - 播放器动画--定时器
+#pragma mark - 播放器动画
+/**
+ *  显示
+ */
 - (void)showPlayControl
 {
     if (IPHONE_H - 159.0 / 667 * IPHONE_H != dibuView.y) {
@@ -3358,7 +3361,7 @@ static NSInteger zanTouchCount = 0;
     }
 }
 /**
- *  添加定时器
+ *  隐藏
  */
 - (void)hidePlayControl
 {

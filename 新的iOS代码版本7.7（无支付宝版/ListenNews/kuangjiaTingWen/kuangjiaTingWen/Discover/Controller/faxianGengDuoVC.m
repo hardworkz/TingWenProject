@@ -218,14 +218,14 @@
             cell = [tableView dequeueReusableCellWithIdentifier:jiemuLieBiaoIdentify];
         }
         //头像
-        UIImageView *imgV = [[UIImageView alloc]initWithFrame:CGRectMake(10.0 / 375 * IPHONE_W, 10, 57, 57)];
+        UIImageView *imgV = [[UIImageView alloc]initWithFrame:CGRectMake(10.0 / 375 * IPHONE_W, 10, 77, 77)];
 //        if([self.infoArr[indexPath.row][@"images"] rangeOfString:@"/data/upload/"].location !=NSNotFound){
 //            [imgV sd_setImageWithURL:[NSURL URLWithString:USERPHOTOHTTPSTRINGZhuBo(self.infoArr[indexPath.row][@"images"])] placeholderImage:[UIImage imageNamed:@"user-5"]];
 //        }
 //        else{
             [imgV sd_setImageWithURL:[NSURL URLWithString:self.infoArr[indexPath.row][@"images"]] placeholderImage:[UIImage imageNamed:@"user-5"]];
 //        }
-        imgV.layer.cornerRadius = 28.5f;
+        imgV.layer.cornerRadius = 77 * 0.5;
         imgV.layer.masksToBounds = YES;
         imgV.contentMode = UIViewContentModeScaleAspectFill;
         [cell.contentView addSubview:imgV];

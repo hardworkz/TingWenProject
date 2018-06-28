@@ -136,6 +136,7 @@
     //日期
     NSDate *date = [NSDate dateFromString:dataDict[@"post_modified"]];
     riqiLab.text = [date showTimeByTypeA];
+    
     //大小
     dataLab.text = [NSString stringWithFormat:@"%.1lf%@",[dataDict[@"post_size"] intValue] / 1024.0 / 1024.0,@"M"];
     //是否已下载

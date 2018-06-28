@@ -158,7 +158,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:jiemuLieBiaoIdentify];
     }
     //头像
-    UIImageView *imgV = [[UIImageView alloc]initWithFrame:CGRectMake(15.0 / 375 * IPHONE_W, 10, 75, 75)];
+    UIImageView *imgV = [[UIImageView alloc]initWithFrame:CGRectMake(15.0 / 375 * IPHONE_W, 10, 100, 100)];
 //    if([self.infoArr[indexPath.row][@"images"] rangeOfString:@"/data/upload/"].location !=NSNotFound){
 //        [imgV sd_setImageWithURL:[NSURL URLWithString:USERPHOTOHTTPSTRINGZhuBo(self.infoArr[indexPath.row][@"images"])] placeholderImage:[UIImage imageNamed:@"user-5"]];
 //    }
@@ -167,6 +167,7 @@
 //    }
     imgV.layer.cornerRadius = 5;
     imgV.layer.masksToBounds = YES;
+    imgV.tag = indexPath.row + 10000;
     imgV.contentMode = UIViewContentModeScaleAspectFill;
     [cell.contentView addSubview:imgV];
     //名字
@@ -205,32 +206,32 @@
     [isSelectBtn addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:isSelectBtn];
     
-    if (self.isAchor) {
+//    if (self.isAchor) {
         //new1
-        UILabel *newOne = [[UILabel alloc]initWithFrame:CGRectMake(titleLab.frame.origin.x, CGRectGetMaxY(imgV.frame) + 10.0 / 667 * SCREEN_HEIGHT, SCREEN_WIDTH - titleLab.frame.origin.x - 15.0 / 375 * IPHONE_W, 20)];
+        UILabel *newOne = [[UILabel alloc]initWithFrame:CGRectMake(titleLab.frame.origin.x, CGRectGetMaxY(neirongLab.frame) + 10.0 / 667 * SCREEN_HEIGHT, SCREEN_WIDTH - titleLab.frame.origin.x - 15.0 / 375 * IPHONE_W, 20)];
         newOne.text = self.infoArr[indexPath.row][@"description"] ;
         newOne.textColor = gTextDownload;
         newOne.font = gFontMain12;
         newOne.textAlignment = NSTextAlignmentLeft;
-        newOne.numberOfLines = 2;
+        newOne.numberOfLines = 3;
         newOne.tag = indexPath.row + 3000;
         CGSize size1 = [newOne sizeThatFits:CGSizeMake(newOne.frame.size.width, MAXFLOAT)];
         newOne.frame = CGRectMake(newOne.frame.origin.x, newOne.frame.origin.y, newOne.frame.size.width, size1.height);
         [cell.contentView addSubview:newOne];
-    }
-    else{
-        //new1
-        UILabel *newOne = [[UILabel alloc]initWithFrame:CGRectMake(imgV.x, CGRectGetMaxY(imgV.frame) + 10.0 / 667 * SCREEN_HEIGHT, SCREEN_WIDTH - 10.0 / 375 * IPHONE_W - 15.0 / 375 * IPHONE_W, 20)];
-        newOne.text = self.infoArr[indexPath.row][@"description"] ;
-        newOne.textColor = gTextDownload;
-        newOne.font = gFontMain12;
-        newOne.textAlignment = NSTextAlignmentLeft;
-        newOne.numberOfLines = 2;
-        newOne.tag = indexPath.row + 3000;
-        CGSize size1 = [newOne sizeThatFits:CGSizeMake(newOne.frame.size.width, MAXFLOAT)];
-        newOne.frame = CGRectMake(newOne.frame.origin.x, newOne.frame.origin.y, newOne.frame.size.width, size1.height);
-        [cell.contentView addSubview:newOne];
-    }
+//    }
+//    else{
+//        //new1
+//        UILabel *newOne = [[UILabel alloc]initWithFrame:CGRectMake(titleLab.frame.origin.x, CGRectGetMaxY(imgV.frame) + 10.0 / 667 * SCREEN_HEIGHT, SCREEN_WIDTH - 10.0 / 375 * IPHONE_W - 15.0 / 375 * IPHONE_W, 20)];
+//        newOne.text = self.infoArr[indexPath.row][@"description"] ;
+//        newOne.textColor = gTextDownload;
+//        newOne.font = gFontMain12;
+//        newOne.textAlignment = NSTextAlignmentLeft;
+//        newOne.numberOfLines = 2;
+//        newOne.tag = indexPath.row + 3000;
+//        CGSize size1 = [newOne sizeThatFits:CGSizeMake(newOne.frame.size.width, MAXFLOAT)];
+//        newOne.frame = CGRectMake(newOne.frame.origin.x, newOne.frame.origin.y, newOne.frame.size.width, size1.height);
+//        [cell.contentView addSubview:newOne];
+//    }
     
     
     cell.tag = indexPath.row + 1000;
@@ -295,8 +296,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     UITableViewCell *cell = (UITableViewCell *)[tableView viewWithTag:indexPath.row + 1000];
-    UILabel *lab1 = (UILabel *)[cell viewWithTag:indexPath.row + 3000];
-    return CGRectGetMaxY(lab1.frame) + 15.0 / 667 * IPHONE_H;
+    UIImageView *image = (UIImageView *)[cell viewWithTag:indexPath.row + 10000];
+    return CGRectGetMaxY(image.frame) + 10.0 / 667 * IPHONE_H;
 }
 - (void)SVPDismiss {
     [SVProgressHUD dismiss];

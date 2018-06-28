@@ -136,7 +136,7 @@
     ExdangqianUserUid = [CommonCode readFromUserD:@"dangqianUserUid"];
     
     [NetWorkTool getIntoAppGuangGaoAccessToken:IS_LOGIN?AvatarAccessToken:nil sccess:^(NSDictionary *responseObject) {
-        if ([responseObject[@"results"] isKindOfClass:[NSArray class]] && responseObject != nil){
+        if ([responseObject[results] isKindOfClass:[NSArray class]] && responseObject != nil){
             if (TARGETED_DEVICE_IS_IPHONE_480 && [[responseObject[@"results"] firstObject][@"status"] isEqualToString:@"1"]){
                 [CommonCode writeToUserD:responseObject andKey:@"StartAD_Data"];
 //                SendNotify(@"getStartAD", nil);

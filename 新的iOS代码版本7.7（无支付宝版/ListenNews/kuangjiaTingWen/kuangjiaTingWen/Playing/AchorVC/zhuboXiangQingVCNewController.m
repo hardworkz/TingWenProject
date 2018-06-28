@@ -192,7 +192,7 @@
                 [btn setTitleColor:gTextColorSub];
                 [btn setSelectedTitleColor:nMainColor];
                 btn.titleLabel.font = gFontSub11;
-                [btn setTitle:@"节目"];
+                [btn setTitle:@"内容"];
                 selectedSwitchIndex = 0;
                 btn.accessibilityLabel = @"节目";
                 btn.selected = YES;
@@ -387,7 +387,7 @@
                     BatchDownloadTableTableViewController *vc = [BatchDownloadTableTableViewController new];
                     vc.downloadSource = @"1";
                     vc.programID = self.jiemuID;
-                    vc.headTitleStr = [NSString stringWithFormat:@"【%@】节目批量下载",self.jiemuName ];
+                    vc.headTitleStr = [NSString stringWithFormat:@"【%@】内容批量下载",self.jiemuName ];
                     [self.navigationController pushViewController:vc animated:YES];
                 }
             }else{
@@ -1294,7 +1294,7 @@
                 
                 WBMessageObject *message = [WBMessageObject message];
                 //消息的文本内容
-                message.text = [NSString stringWithFormat:@"我觉得【%@】的节目不错~http://tingwen.me/index.php/act/detail/id/%@",self.jiemuName,self.jiemuID];
+                message.text = [NSString stringWithFormat:@"我觉得【%@】的内容不错~http://tingwen.me/index.php/act/detail/id/%@",self.jiemuName,self.jiemuID];
                 WBImageObject *imgObjc = [WBImageObject object];
                 imgObjc.imageData = imageData;
                 message.imageObject = imgObjc;
